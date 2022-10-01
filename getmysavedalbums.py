@@ -23,7 +23,7 @@ def progress(count, total, status=''):
 
 #use postman Oauth2 to get spotify access_token
 # paste here
-access_token = 'BQAO_TC7BBOMbeRFQTiokprjSAGaszCvtx3JzKt0ac7iEDbnkWDaOSD4lSMj83MdfV8D852FaoHOEAL4BXeCH5tfrrTMkuymfvhc3mqxwF5HrrOQGgmROlDYjGyLMsGcwOnVypdOp4Zig8pldyA3MoEU_ls2WIoc51rg_0ONC6vAJHliSW1001WBqcXfbYO0hsw'
+access_token = 'BQCbT8BKZQ-r70YWUb7__qQCdvlGSYQ89xC5FtzOiFx_mVsM6WHXGOKLgisbAIGsVsJGUeoGtcaUYTKzyyTWIVdv31lel4YYRkrQdVNMb_AqGC5_F0HULt5_bqfoBqRTKRAUzFCfe_-TSvmiuv30MHgBorPeNXAzqwKshXKo7AbKXsPdLAcfiM4Jx8Diu1ub7ndZCCg'
 
 api_call_headers = {'Authorization': 'Bearer ' + access_token}
 

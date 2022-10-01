@@ -22,23 +22,23 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 1) Add valid access_token
 # 2) Add search playlist and target playlist fields
 # 3) Add genre to filter on
-access_token = 'BQCd23LMG-J5Nrh6DdEnc7P2_8zvm-exsM4WJWk5_Eqg6cAW02Ex8jsjjhLvqAve9oLaOc7-fiT1QYEHUnH2FOil_9DpkTLwszcXh90aAPKoDB9hrPuwNn3SasUyzKWXS8Q3InohT4gVD7Th6YbDAjbJTybYLaXRyX0A5tMQ8UQe_dINlzawJmKSoEgTcQ4nKs0'
+access_token = 'BQBh7HBE8w5zSpJQjLCQnxOS1zbqD5BvyTYCoTzd0XvZcYnjK6_JPBXeopVyufb7koE_kfV9vxAqarZ3IT_KwrnQZldPwLDbz-3rwWlReaSnaePxncJAJ_S0SsW4rE4rD9-kbkcfl8xau3F_e-HQy5UgmEmWyu9bMZrCsXQfMLCVYYrjfYrp2kMKyvddpmDWhY1OzZhMg5pIEuakN3_jLnsjbJefTgH1eJwV'
 
 search_playlist_id = '4wYwzTatuFG1G5Mm6QxDf6'
 populate_playlist_id = '67tq6cEqQ2zBdt1Y2HkHUO'
-search = 'pop'
+search = 'latin'
 
 api_call_headers = {'Authorization': 'Bearer ' + access_token}
 
 #get track info and artist ids
-total_tracks = 3248
+total_tracks = 3880
 track_it = 0
 data = {}
 data['tracks'] = []
 x=0
-#max is 100
+#max results per request is 100
 limit=100
-while x<30:
+while x<50:
     offset=str(x*limit)
     getPlaylistItems = "https://api.spotify.com/v1/playlists/" + search_playlist_id + "/tracks?fields=items(track.artists(id),track.name,track.id,track.album.release_date)&limit=" + str(limit) + "&offset=" + offset
 

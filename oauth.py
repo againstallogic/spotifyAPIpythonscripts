@@ -1,27 +1,25 @@
 __author__ = 'bdm4, James Allsup'
 
-#install pip packages
-#uncheck 'airplay receiver' in mac sharing settings
-#Just browse to Applications/Python 3.6 and double-click Install Certificates.command
-
-
-
-import requests, json, subprocess, urllib3, webbrowser, sys
+import requests
+import json
 from flask import Flask, redirect, url_for, session, request
 from flask_oauthlib.client import OAuth, OAuthException
+
+import subprocess
+import sys
+import os
+import urllib3
 from datetime import datetime
+from requests_oauthlib import OAuth2Session
+import webbrowser
 from threading import Timer
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-artist_id = input('Enter artist link: ')
-artist_id = artist_id.replace('https://open.spotify.com/artist/', '')
-artist_id=artist_id[:22]
 
-populate_playlist_id = '67tq6cEqQ2zBdt1Y2HkHUO'
+#Timer(2, webbrowser.open('http://127.0.0.1:5000/')).start();
 
-#OAuth 2.0 with Flask
 SPOTIFY_APP_ID = '329e310f27a64fe6b6498877b76d3732'
 SPOTIFY_APP_SECRET = '655a33bed21e4c25971346944f8a1220'
 
@@ -46,9 +44,15 @@ spotify = oauth.remote_app(
     authorize_url='https://accounts.spotify.com/authorize'
 )
 
+
+
+
 @app.route('/')
 def index():
     return redirect(url_for('login'))
+
+
+
 
 @app.route('/login')
 def login():
@@ -73,17 +77,20 @@ def spotify_authorized():
     session['oauth_token'] = (resp['access_token'], '')
 
     me = spotify.get('/me')
+    print(resp['access_token'])
     access_token=resp['access_token']
     return getartistdiscog(access_token)
+
 
 @spotify.tokengetter
 def get_spotify_oauth_token():
     return session.get('oauth_token')
 
-#Spotify API
 def getartistdiscog(access_token):
     access_token = access_token
 
+    artist_id = '1oPRcJUkloHaRLYx0olBLJ'
+    populate_playlist_id = '67tq6cEqQ2zBdt1Y2HkHUO'
 
     api_call_headers = {'Authorization': 'Bearer ' + access_token}
 
@@ -125,9 +132,11 @@ def getartistdiscog(access_token):
                 })
         x+=1
 
-    #print(albumData['albums'])
+    print(albumData['albums'])
     #sort albums by release date asc
     sortedAlbums = sorted(albumData['albums'], key=lambda x: datetime.strptime(x['albumReleaseDate'], '%Y-%m-%d'))
+
+
 
     trackData = {}
     trackData['tracks'] = []
@@ -185,10 +194,7 @@ def getartistdiscog(access_token):
     api_call_response = requests.post(getPlaylistItems, data=json.dumps(tracklist), headers=api_call_headers, verify=False)
     if api_call_response.status_code != 201:
         print("API Request Error")
-    return 'Playlist successfully updated!'
-
-
-
+    return 'playlist updated'
 
 
 
